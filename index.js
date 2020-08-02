@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+const keys = require('./config/keys');
 
 app.use(bodyParser.json());
 
@@ -14,4 +15,11 @@ app.use((req, res , next) => {
 
 const PORT = process.env.PORT || 5000;
 
-app.listen(PORT, () => console.log("Server started"));
+mongoose.connect(keys.mongoURI)
+  .then(() => {
+    app.listen(PORT);
+    console.log("Server Started");
+  })
+  .catch(err => {
+    console.log(err);
+  });
