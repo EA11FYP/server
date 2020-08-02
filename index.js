@@ -18,12 +18,12 @@ app.get("/", (req,res) => {
 })
 
 const PORT = process.env.PORT || 5000;
-
-mongoose.connect(keys.mongoURI)
-  .then(() => {
-    app.listen(PORT);
-    console.log("Server Started");
-  })
-  .catch(err => {
-    console.log(err);
-  });
+app.listen(PORT);
+// mongoose.connect(keys.mongoURI)
+//   .then(() => {
+//     app.listen(PORT);
+//     console.log("Server Started");
+//   })
+//   .catch(err => {
+//     console.log(err);
+//   });
