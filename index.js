@@ -13,6 +13,10 @@ app.use((req, res , next) => {
     next();
 });
 
+app.get("/", (req,res) => {
+  res.send("message: Connected sucessfully");
+})
+
 const PORT = process.env.PORT || 5000;
 
 mongoose.connect(keys.mongoURI)
