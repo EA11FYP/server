@@ -18,12 +18,13 @@ app.get("/", (req,res) => {
 })
 
 const PORT = process.env.PORT || 5000;
-app.listen(PORT);
-// mongoose.connect(keys.mongoURI)
-//   .then(() => {
-//     app.listen(PORT);
-//     console.log("Server Started");
-//   })
-//   .catch(err => {
-//     console.log(err);
-//   });
+
+mongoose.connect('mongodb+srv://admin:SyPf9wZFJQwszrgJ@fyp.7qs2e.mongodb.net/test?retryWrites=true&w=majority')
+  .then(() => {
+    app.listen(PORT);
+    console.log("Server Started");
+  })
+  .catch(err => {
+    console.log(err);
+  }); 
+  //mongodb+srv://admin:SyPf9wZFJQwszrgJ@fyp.7qs2e.mongodb.net/fyp?retryWrites=true&w=majority
