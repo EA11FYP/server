@@ -82,7 +82,7 @@ const mentorSignup = (req, res, next) => {
 
 const menteeLogin = (req, res, next) => {
 
-    passport.authenticate('local',(err, user, info) => {
+    passport.authenticate('local', async (err, user, info) => {
         if (err) { 
             return res.send({
                 success: false,
@@ -95,19 +95,63 @@ const menteeLogin = (req, res, next) => {
                 message: "User does not exists, Signup for free"
             })
         }
-
+        let userInfo = await Mentee.findOne({credentials:user._id});
         req.logIn(user, (err) => {
-          if (err) { 
+            if (err) { 
+                return res.send({
+                    success: false,
+                    message: "Something went wrong, please try again"
+                })
+            }
+            if(userInfo == null){
+                return res.send({
+                    success: false,
+                    message: "User does not exists, Signup for free"
+                })
+            }
+            return res.send({
+                success: true,
+                message: "successfully logged in",
+                info: userInfo
+            })
+        });
+      })(req, res, next);
+}
+
+const mentorLogin = (req, res, next) => {
+
+    passport.authenticate('local', async (err, user, info) => {
+        if (err) { 
             return res.send({
                 success: false,
                 message: "Something went wrong, please try again"
             })
         }
-          return res.send({
-              success: true,
-              message: "successfully logged in",
-              info: user
-          })
+        if (!user) { 
+            return res.send({
+                success: false,
+                message: "User does not exists, Signup for free"
+            })
+        }
+        let userInfo = await Mentor.findOne({credentials:user._id});
+        req.logIn(user, (err) => {
+            if (err) { 
+                return res.send({
+                    success: false,
+                    message: "Something went wrong, please try again"
+                })
+            }
+            if(userInfo == null){
+                return res.send({
+                    success: false,
+                    message: "User does not exists, Signup for free"
+                })
+            }
+            return res.send({
+                success: true,
+                message: "successfully logged in",
+                info: userInfo
+             })
         });
       })(req, res, next);
 }
@@ -115,3 +159,4 @@ const menteeLogin = (req, res, next) => {
 exports.menteeSignup = menteeSignup;
 exports.mentorSignup = mentorSignup;
 exports.menteeLogin = menteeLogin;
+exports.mentorLogin = mentorLogin;

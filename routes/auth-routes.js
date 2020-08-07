@@ -16,4 +16,6 @@ router.post("/mentor/signup", [
 
 router.post("/mentee/login", authControllers.menteeLogin);
 
+router.post("/mentor/login", authControllers.mentorLogin);
+
 module.exports = router;
