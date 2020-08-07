@@ -19,14 +19,14 @@ app.get("/", (req,res) => {
 
 const PORT = process.env.PORT || 5000;
 
-// mongoose.connect('')
-//   .then(() => {
-//     app.listen(PORT);
-//     console.log("Server Started");
-//   })
-//   .catch(err => {
-//     console.log(err);
-//   }); 
+ mongoose.connect('mongodb://localhost/surveyApp')
+   .then(() => {
+     app.listen(PORT);
+     console.log("Server Started");
+   })
+   .catch(err => {
+     console.log(err);
+   }); 
 
-app.listen(PORT, () => console.log("Server start"));
+// app.listen(PORT, () => console.log("Server start"));
   
