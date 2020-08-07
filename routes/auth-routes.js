@@ -6,11 +6,6 @@ const authControllers = require('../controllers/auth-controllers');
 
 const router = express.Router();
 
-router.post("/signup", [
-    check('username')
-      .normalizeEmail() 
-      .isEmail(),
-    check('password').isLength({ min: 6 })
-  ], authControllers.signup);
+router.post("/mentee/signup", authControllers.menteeSignup);
 
 module.exports = router;
