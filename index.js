@@ -1,8 +1,12 @@
 const express = require('express');
 const app = express();
+const User = require('./models/user');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const keys = require('./config/keys');
+const cookieSession = require('cookie-session');
+const passport = require('passport');
+const localStrategy = require('passport-local');
 
 app.use(bodyParser.json());
 
@@ -12,6 +16,18 @@ app.use((req, res , next) => {
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PATCH, DELETE');
     next();
 });
+
+app.use(cookieSession({
+  maxAge : 2592000000,
+  keys : [keys.cookieKey]
+}));
+
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new localStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
 
 app.get("/", (req,res) => {
   res.send("message: Connected sucessfully");
