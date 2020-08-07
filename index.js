@@ -8,6 +8,8 @@ const cookieSession = require('cookie-session');
 const passport = require('passport');
 const localStrategy = require('passport-local');
 
+const authRoutes = require('./routes/auth-routes');
+
 app.use(bodyParser.json());
 
 app.use((req, res , next) => {
@@ -31,7 +33,9 @@ passport.deserializeUser(User.deserializeUser());
 
 app.get("/", (req,res) => {
   res.send("message: Connected sucessfully");
-})
+});
+
+// app.use("/auth", authRoutes);
 
 const PORT = process.env.PORT || 5000;
 
