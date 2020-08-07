@@ -7,10 +7,7 @@ const authControllers = require('../controllers/auth-controllers');
 const router = express.Router();
 
 router.post("/signup", [
-    check('name')
-      .not()
-      .isEmpty(),
-    check('email')
+    check('username')
       .normalizeEmail() 
       .isEmail(),
     check('password').isLength({ min: 6 })

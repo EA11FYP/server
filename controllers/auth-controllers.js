@@ -1,15 +1,16 @@
 const { validationResult } = require('express-validator');
 const passport = require('passport');
-const Users = require('../models/user');
+const User = require('../models/user');
 
 const HttpError = require('../models/http-error');
 
-const signup = (req, res) => {
+const signup = (req, res, next) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      return next (
+    return next (
         new HttpError('Invalid inputs passed, please check your data.', 422)
-      ) 
+    ) 
+    //return res.send(errors.array())
     }
 
     let { username, password } = req.body;
