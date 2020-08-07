@@ -156,7 +156,16 @@ const mentorLogin = (req, res, next) => {
       })(req, res, next);
 }
 
+const logout = (req, res, next) => {
+    req.logout();
+    res.send({
+        success: true,
+        message: "Sucessfully logged out"
+    });
+}
+
 exports.menteeSignup = menteeSignup;
 exports.mentorSignup = mentorSignup;
 exports.menteeLogin = menteeLogin;
 exports.mentorLogin = mentorLogin;
+exports.logout = logout;

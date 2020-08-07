@@ -18,4 +18,8 @@ router.post("/mentee/login", authControllers.menteeLogin);
 
 router.post("/mentor/login", authControllers.mentorLogin);
 
+router.post("/mentee/logout", authControllers.logout);
+
+router.post("/mentor/logout", authControllers.logout);
+
 module.exports = router;
