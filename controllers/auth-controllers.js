@@ -23,7 +23,6 @@ const menteeSignup =  (req, res, next) => {
 
     let newUser = new User({username: username, userType: "mentee"});
     
-
     User.register(newUser, password, (err, user) => {
         if(err){
             new HttpError('User exists', 400);
@@ -60,7 +59,6 @@ const mentorSignup = (req, res, next) => {
 
     let newUser = new User({username: username, userType: "mentor"});
     
-
     User.register(newUser, password, (err, user) => {
         if(err){
             new HttpError('User exists', 400);
@@ -82,5 +80,38 @@ const mentorSignup = (req, res, next) => {
 
 }
 
+const menteeLogin = (req, res, next) => {
+
+    passport.authenticate('local',(err, user, info) => {
+        if (err) { 
+            return res.send({
+                success: false,
+                message: "Something went wrong, please try again"
+            })
+        }
+        if (!user) { 
+            return res.send({
+                success: false,
+                message: "User does not exists, Signup for free"
+            })
+        }
+
+        req.logIn(user, (err) => {
+          if (err) { 
+            return res.send({
+                success: false,
+                message: "Something went wrong, please try again"
+            })
+        }
+          return res.send({
+              success: true,
+              message: "successfully logged in",
+              info: user
+          })
+        });
+      })(req, res, next);
+}
+
 exports.menteeSignup = menteeSignup;
 exports.mentorSignup = mentorSignup;
+exports.menteeLogin = menteeLogin;

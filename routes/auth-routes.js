@@ -8,10 +8,12 @@ const router = express.Router();
 
 router.post("/mentee/signup", [
     check('password').isLength({ min: 6 })
-  ], authControllers.menteeSignup);
+], authControllers.menteeSignup);
 
 router.post("/mentor/signup", [
   check('password').isLength({ min: 6 })
-], authControllers.mentorSignup)
+], authControllers.mentorSignup);
+
+router.post("/mentee/login", authControllers.menteeLogin);
 
 module.exports = router;
