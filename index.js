@@ -40,15 +40,15 @@ app.use("/api/auth", authRoutes);
 const PORT = process.env.PORT || 5000;
 
 
-// mongoose.connect(keys.mongoURI)
-//    .then(() => {
-//      app.listen(PORT);
-//      console.log("Server Started");
-//    })
-//    .catch(err => {
-//      console.log(err);
-//    }); 
+ mongoose.connect('mongodb+srv://admin:7rlMdIyiIeMFSIzJ@cluster0.pntwe.mongodb.net/fyp?retryWrites=true&w=majority')
+    .then(() => {
+      app.listen(PORT);
+      console.log("Server Started");
+    })
+    .catch(err => {
+      console.log(err);
+   }); 
 
-app.listen(PORT);
+//app.listen(PORT);
 
   
