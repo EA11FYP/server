@@ -92,7 +92,7 @@ const menteeLogin = (req, res, next) => {
         if (!user) { 
             return res.send({
                 success: false,
-                message: "User does not exists, Signup for free"
+                message: "Sign-in failed!"
             })
         }
         let userInfo = await Mentee.findOne({credentials:user._id});

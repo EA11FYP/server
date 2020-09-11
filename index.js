@@ -39,7 +39,8 @@ app.use("/api/auth", authRoutes);
 
 const PORT = process.env.PORT || 5000;
 
- mongoose.connect('mongodb://localhost/fyp')
+
+mongoose.connect(keys.mongoURI)
    .then(() => {
      app.listen(PORT);
      console.log("Server Started");
@@ -48,5 +49,4 @@ const PORT = process.env.PORT || 5000;
      console.log(err);
    }); 
 
-// app.listen(PORT, () => console.log("Server start"));
   
