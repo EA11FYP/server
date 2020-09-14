@@ -26,11 +26,28 @@ const newForumPost = async (req, res, next) => {
                                 username: authorName
                         }});
     await newPost.save();
-    res.send({
-        success: true,
-        message: "Forum post sucessfully created",
-        info: newPost
-    });
+    //let userInfo = {};
+    if(userType === "mentor"){
+        Mentor.findById(authorId,  async (err, result) => {
+            if(err){
+                res.send({
+                    success: false,
+                    message: "Invalid user"
+                });
+                return new HttpError('User invalid', 401);
+            } else{
+                result.forumPost.push(newPost._id);
+                await result.save();
+                res.send({
+                    success: true,
+                    message: "Forum post sucessfully created",
+                    userInfo: result,
+                    postInfo: newPost
+                });
+            }
+        });
+    }
+  
     
 };
 
