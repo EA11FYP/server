@@ -9,6 +9,7 @@ const passport = require('passport');
 const localStrategy = require('passport-local');
 
 const authRoutes = require('./routes/auth-routes');
+const forumRoutes = require('./routes/forum-routes');
 
 app.use(bodyParser.json());
 
@@ -36,6 +37,8 @@ app.get("/", (req,res) => {
 });
 
 app.use("/api/auth", authRoutes);
+
+app.use("/api/forum", forumRoutes);
 
 const PORT = process.env.PORT || 5000;
 
