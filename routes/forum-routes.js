@@ -6,4 +6,6 @@ const router = express.Router();
 
 router.post("/new",forumControllers.newForumPost);
 
+router.get("/",forumControllers.allForumPost);
+
 module.exports = router;
