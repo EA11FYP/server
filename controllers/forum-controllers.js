@@ -3,6 +3,7 @@ const Comment = require('../models/forum/comments');
 const Mentee = require('../models/mentee');
 const Mentor = require('../models/mentor');
 
+
 const HttpError = require('../models/http-error');
 
 const newForumPost = async (req, res, next) => {
@@ -76,7 +77,24 @@ const allForumPost = (req, res, next) => {
     })
 };
 
+const deleteForumPost = (req, res, next) => {
+    Forum.findByIdAndRemove(req.params.id, (err) => {
+        if(err){
+            res.send({
+                success: false,
+                message: "Cannot delete post, error occured"
+            });
+        } else {
+            res.send({
+                success: true,
+                message: "Sucessfully deleted post"
+            });
+        }
+    });
+}
+
 
 
 exports.newForumPost = newForumPost;
 exports.allForumPost = allForumPost;
+exports.deleteForumPost = deleteForumPost;

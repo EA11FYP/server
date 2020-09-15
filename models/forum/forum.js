@@ -23,4 +23,4 @@ let forumSchema = new Schema({
 	]
 });
 
-module.exports = mongoose.model("Forun", forumSchema);
+module.exports = mongoose.model("Forum", forumSchema);
