@@ -178,8 +178,6 @@ const newForumComment = (req, res, next) => {
     })
 }
 
-
-
 exports.newForumPost = newForumPost;
 exports.allForumPost = allForumPost;
 exports.deleteForumPost = deleteForumPost;
