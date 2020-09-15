@@ -18,7 +18,7 @@ router.post("/mentee/login", authControllers.menteeLogin);
 
 router.post("/mentor/login", authControllers.mentorLogin);
 
-router.post("/logout", authControllers.logout);
+router.get("/logout", authControllers.logout);
 
 
 
