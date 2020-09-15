@@ -5,10 +5,12 @@ const forumControllers = require('../controllers/forum-controllers');
 
 const router = express.Router();
 
-router.post("/new", forumControllers.newForumPost);
+router.post("/new", requireLogin, forumControllers.newForumPost);
 
 router.get("/",forumControllers.allForumPost);
 
-router.delete("/delete/:id", forumControllers.deleteForumPost);
+router.delete("/delete/:id", requireLogin, forumControllers.deleteForumPost);
+
+router.put("/edit/:id", requireLogin, forumControllers.editFourmPost);
 
 module.exports = router;

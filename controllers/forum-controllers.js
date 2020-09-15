@@ -93,8 +93,26 @@ const deleteForumPost = (req, res, next) => {
     });
 }
 
+const editFourmPost = (req, res, next) => {
+    Forum.findByIdAndUpdate(req.params.id, req.body, (err, result) => {
+        if(err){
+            return res.send({
+                success: false,
+                message: "Cannot edit post, error occured"
+            });
+        } else{
+            res.send({
+                success: true,
+                message: "Sucessfully edited post",
+                postInfo: result
+            });
+        }
+    });
+}
+
 
 
 exports.newForumPost = newForumPost;
 exports.allForumPost = allForumPost;
 exports.deleteForumPost = deleteForumPost;
+exports.editFourmPost = editFourmPost;
