@@ -110,9 +110,78 @@ const editFourmPost = (req, res, next) => {
     });
 }
 
+const newForumComment = (req, res, next) => {
+    Forum.findById(req.params.id, async (err, forum) => {
+        if(err){
+            return res.send({
+                success: false,
+                message: "Cannot find post"
+            });
+        } else{
+            let { body, authorId, authorName, userType } = req.body;
+            
+            let today = new Date();
+            let date = `${today.getDate()}:${today.getMonth()}:${today.getFullYear()}`;
+
+            let newComment = new Comment({
+                body: body,
+                author: {
+                    id: authorId,
+                    username: authorName
+                },
+                date: date
+            });
+            await newComment.save();
+            forum.comments.push(newComment);
+            await forum.save();
+
+            if(userType === 'mentor'){
+                Mentor.findById(authorId, async (err, mentor) => {
+                    if(err){
+                        return res.send({
+                            success: false,
+                            message: "Something went wrong"
+                        });
+                    } else{
+                        mentor.comments.push(newComment);
+                        await mentor.save();
+                        return res.send({
+                            success: true,
+                            message: "Comment added sucessfully",
+                            forumInfo: forum,
+                            commentInfo: newComment,
+                            userInfo: mentor
+                        });
+                    }
+                });
+            } else if(userType === 'mentee'){
+                Mentee.findById(authorId, async (err, mentee) => {
+                    if(err){
+                        return res.send({
+                            success: false,
+                            message: "Something went wrong"
+                        });
+                    } else{
+                        mentee.comments.push(newComment);
+                        await mentee.save();
+                        return res.send({
+                            success: true,
+                            message: "Comment added sucessfully",
+                            forumInfo: forum,
+                            commentInfo: newComment,
+                            userInfo: mentee
+                        });
+                    }
+                });
+            }  
+        }
+    })
+}
+
 
 
 exports.newForumPost = newForumPost;
 exports.allForumPost = allForumPost;
 exports.deleteForumPost = deleteForumPost;
 exports.editFourmPost = editFourmPost;
+exports.newForumComment = newForumComment;
