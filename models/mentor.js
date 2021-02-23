@@ -3,7 +3,7 @@ let { Schema } = mongoose;
 
 let mentorSchema = new Schema({
     name: {type:String, required:true},
-    credentials: {type: Schema.Types.ObjectId, ref:'User'},
+    credentials: {type: Schema.Types.ObjectId, ref:'User'}, //user.js
     forumPost: [{
         type: Schema.Types.ObjectId,
         ref: 'Forum'

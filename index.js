@@ -43,10 +43,14 @@ app.use("/api/forum", forumRoutes);
 const PORT = process.env.PORT || 5000;
 
 
- mongoose.connect(keys.mongoURI)
+ mongoose.connect(keys.mongoURI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useFindAndModify:false})
     .then(() => {
       app.listen(PORT);
       console.log("Server Started");
+      console.log("Connected to DB");
     })
     .catch(err => {
       console.log(err);

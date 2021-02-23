@@ -9,13 +9,15 @@ const HttpError = require('../models/http-error');
 const newForumPost = async (req, res, next) => {
     let { title, description, domain, authorId, authorName, userType } = req.body;
 
-    let newPost =  new Forum({title:title,
-                        description:description, 
-                        domain:domain,
-                        author:{
-                                id:authorId,
-                                username: authorName
-                        }});
+    let newPost =  new Forum({
+        title:title,
+        description:description, 
+        domain:domain,
+        author:{
+                id:authorId,
+                username: authorName
+        }});
+        
     await newPost.save();
 
     if(userType === "mentor"){
