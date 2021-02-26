@@ -40,6 +40,13 @@ app.use("/api/auth", authRoutes);
 
 app.use("/api/forum", forumRoutes);
 
+app.all('*',(req,res) => {
+  return res.status(404).send({
+    success: false,
+    message:" route not found"
+  })
+});
+
 const PORT = process.env.PORT || 5000;
 
 

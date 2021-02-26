@@ -64,11 +64,10 @@ const newForumPost = async (req, res, next) => {
 const allForumPost = (req, res, next) => {
     Forum.find({}, (err, result) => {
         if(err){
-            res.send({
+           return  res.status(400).send({
                 success: false,
                 message: "Unexpected error"
             });
-            return new HttpError('Error', 404);
         } else {
             res.send({
                 success: true,
@@ -82,7 +81,7 @@ const allForumPost = (req, res, next) => {
 const deleteForumPost = (req, res, next) => {
     Forum.findByIdAndRemove(req.params.id, (err) => {
         if(err){
-            res.send({
+            return res.status(500).send({
                 success: false,
                 message: "Cannot delete post, error occured"
             });
@@ -98,7 +97,7 @@ const deleteForumPost = (req, res, next) => {
 const editFourmPost = (req, res, next) => {
     Forum.findByIdAndUpdate(req.params.id, req.body, (err, result) => {
         if(err){
-            return res.send({
+            return res.status(500).send({
                 success: false,
                 message: "Cannot edit post, error occured"
             });
@@ -113,27 +112,34 @@ const editFourmPost = (req, res, next) => {
 }
 
 const newForumComment = (req, res, next) => {
-    Forum.findById(req.params.id, async (err, forum) => {
-        if(err){
+    Forum.findOne({_id:req.params.id}, async (err, forum) => {
+        if(err || !forum){
             return res.send({
                 success: false,
                 message: "Cannot find post"
             });
         } else{
             let { body, authorId, authorName, userType } = req.body;
-            
-            let today = new Date();
-            let date = `${today.getDate()}:${today.getMonth()}:${today.getFullYear()}`;
+            //return res.send({forum});
+            // let today = new Date();
+            // let date = `${today.getDate()}:${today.getMonth()}:${today.getFullYear()}`;
+            if(!body || !authorId || !authorName || !userType){
+                return res.status(401).send({
+                    success: false,
+                    message: "invalid inputs"
+                });
+            }
 
             let newComment = new Comment({
                 body: body,
                 author: {
                     id: authorId,
                     username: authorName
-                },
-                date: date
+                }
+                // date: date
             });
             await newComment.save();
+            //return res.send(newComment);
             forum.comments.push(newComment);
             await forum.save();
 
@@ -175,7 +181,12 @@ const newForumComment = (req, res, next) => {
                         });
                     }
                 });
-            }  
+            }  else {
+                res.status(500).send({
+                    success: false,
+                    message: "cannot post comment"
+                })
+            }
         }
     })
 }
