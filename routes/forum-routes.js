@@ -9,6 +9,8 @@ router.post("/new", requireLogin, forumControllers.newForumPost);
 
 router.get("/",forumControllers.allForumPost);
 
+router.get("/one/:id", forumControllers.getForumById);
+
 router.delete("/delete/:id", requireLogin, forumControllers.deleteForumPost);
 
 router.put("/edit/:id", requireLogin, forumControllers.editFourmPost);

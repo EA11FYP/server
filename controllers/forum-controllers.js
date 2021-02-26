@@ -61,6 +61,20 @@ const newForumPost = async (req, res, next) => {
     }
 };
 
+const getForumById = (req, res, next) => {
+    const { id } = req.params;
+    Forum.findOne({_id:id},((err, forum) => {
+        if(err || !forum){
+            return res.send({
+                success: false,
+                message: "Cannot find post"
+            });
+        } else{
+            return res.send(forum);
+        }
+    })).populate("comments")
+};
+
 const allForumPost = (req, res, next) => {
     Forum.find({}, (err, result) => {
         if(err){
@@ -121,8 +135,9 @@ const newForumComment = (req, res, next) => {
         } else{
             let { body, authorId, authorName, userType } = req.body;
             //return res.send({forum});
-            // let today = new Date();
-            // let date = `${today.getDate()}:${today.getMonth()}:${today.getFullYear()}`;
+            let today = new Date();
+            let date = `${today.getDate()}:${today.getMonth()}:${today.getFullYear()}`;
+
             if(!body || !authorId || !authorName || !userType){
                 return res.status(401).send({
                     success: false,
@@ -135,8 +150,8 @@ const newForumComment = (req, res, next) => {
                 author: {
                     id: authorId,
                     username: authorName
-                }
-                // date: date
+                },
+                date: date
             });
             await newComment.save();
             //return res.send(newComment);
@@ -192,6 +207,7 @@ const newForumComment = (req, res, next) => {
 }
 
 exports.newForumPost = newForumPost;
+exports.getForumById = getForumById;
 exports.allForumPost = allForumPost;
 exports.deleteForumPost = deleteForumPost;
 exports.editFourmPost = editFourmPost;
