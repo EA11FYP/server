@@ -15,6 +15,6 @@ router.delete("/delete/:id", requireLogin, forumControllers.deleteForumPost);
 
 router.put("/edit/:id", requireLogin, forumControllers.editFourmPost);
 
-router.post("/:id/comment/new", forumControllers.newForumComment);
+router.post("/:id/comment/new", requireLogin, forumControllers.newForumComment);
 
 module.exports = router;
