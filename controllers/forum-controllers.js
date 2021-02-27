@@ -10,7 +10,7 @@ const newForumPost = async (req, res, next) => {
     let { title, description, domain, authorId, authorName, userType } = req.body;
 
     let today = new Date();
-    let date = `${today.getDate()}:${today.getMonth()}:${today.getFullYear()}`;
+    let date = `${today.getDate()}:${today.getMonth()+1}:${today.getFullYear()}`;
 
     let newPost =  new Forum({
         title:title,

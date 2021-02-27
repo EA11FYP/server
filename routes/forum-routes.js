@@ -5,7 +5,7 @@ const forumControllers = require('../controllers/forum-controllers');
 
 const router = express.Router();
 
-router.post("/new", requireLogin, forumControllers.newForumPost);
+router.post("/new", forumControllers.newForumPost);
 
 router.get("/",forumControllers.allForumPost);
 
