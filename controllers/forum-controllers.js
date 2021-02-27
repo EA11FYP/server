@@ -9,6 +9,9 @@ const HttpError = require('../models/http-error');
 const newForumPost = async (req, res, next) => {
     let { title, description, domain, authorId, authorName, userType } = req.body;
 
+    let today = new Date();
+    let date = `${today.getDate()}:${today.getMonth()}:${today.getFullYear()}`;
+
     let newPost =  new Forum({
         title:title,
         description:description, 
@@ -16,18 +19,19 @@ const newForumPost = async (req, res, next) => {
         author:{
                 id:authorId,
                 username: authorName
-        }});
+        },
+        date:date
+    });
         
     await newPost.save();
 
     if(userType === "mentor"){
         Mentor.findById(authorId,  async (err, result) => {
             if(err){
-                res.send({
+                return res.status(401).send({
                     success: false,
                     message: "Invalid user"
                 });
-                return new HttpError('User invalid', 401);
             } else{
                 result.forumPost.push(newPost._id);
                 await result.save();
@@ -86,7 +90,7 @@ const allForumPost = (req, res, next) => {
             res.send({
                 success: true,
                 message: "Sucessfully send all posts",
-                info: result
+                info: result.reverse()
             });
         }
     })
@@ -134,6 +138,7 @@ const newForumComment = (req, res, next) => {
             });
         } else{
             let { body, authorId, authorName, userType } = req.body;
+           // console.log(req.body )
             //return res.send({forum});
             let today = new Date();
             let date = `${today.getDate()}:${today.getMonth()}:${today.getFullYear()}`;
@@ -161,7 +166,7 @@ const newForumComment = (req, res, next) => {
             if(userType === 'mentor'){
                 Mentor.findById(authorId, async (err, mentor) => {
                     if(err){
-                        return res.send({
+                        return res.status(400).send({
                             success: false,
                             message: "Something went wrong"
                         });
