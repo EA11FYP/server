@@ -11,9 +11,9 @@ router.get("/",forumControllers.allForumPost);
 
 router.get("/one/:id", forumControllers.getForumById);
 
-router.delete("/delete/:id", requireLogin, forumControllers.deleteForumPost);
+router.delete("/delete/:id", forumControllers.deleteForumPost);
 
-router.put("/edit/:id", requireLogin, forumControllers.editFourmPost);
+router.post("/edit/:id", forumControllers.editFourmPost);
 
 router.post("/:id/comment/new", forumControllers.newForumComment);
 
