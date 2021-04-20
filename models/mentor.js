@@ -13,7 +13,11 @@ let mentorSchema = new Schema({
 			type: mongoose.Schema.Types.ObjectId,
             ref: "Comment"
 		}
-	]
+	],
+    blogs: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Blog'
+    }]
 });
 
 module.exports = mongoose.model("Mentor", mentorSchema);

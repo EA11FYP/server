@@ -10,6 +10,7 @@ const localStrategy = require('passport-local');
 
 const authRoutes = require('./routes/auth-routes');
 const forumRoutes = require('./routes/forum-routes');
+const blogRoutes = require('./routes/blog-routes');
 
 app.use(bodyParser.json());
 
@@ -39,6 +40,8 @@ app.get("/", (req,res) => {
 app.use("/api/auth", authRoutes);
 
 app.use("/api/forum", forumRoutes);
+
+app.use("/api/blog", blogRoutes);
 
 app.all('*',(req,res) => {
   return res.status(404).send({
