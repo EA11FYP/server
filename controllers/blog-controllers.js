@@ -75,6 +75,41 @@ const blogById = async(req,res,next) => {
     }))
 }
 
+const deleteBlog = async(req,res,next) => {
+    Blog.findByIdAndRemove(req.params.id, (err) => {
+        if(err){
+            return res.status(500).send({
+                success: false,
+                message: "Cannot delete post, error occured"
+            });
+        } else {
+            res.send({
+                success: true,
+                message: "Sucessfully deleted post"
+            });
+        }
+    });
+}
+
+const editBlog = async (req,res,next) => {
+    Blog.findByIdAndUpdate(req.params.id, req.body, (err, result) => {
+        if(err){
+            return res.status(500).send({
+                success: false,
+                message: "Cannot edit post, error occured"
+            });
+        } else{
+            res.send({
+                success: true,
+                message: "Sucessfully edited post",
+                postInfo: result
+            });
+        }
+    });
+}
+
 exports.newBlog = newBlog;
 exports.allBlogs = allBlogs;
 exports.blogById = blogById;
+exports.deleteBlog = deleteBlog;
+exports.editBlog = editBlog;

@@ -10,8 +10,8 @@ router.post('/new',blogControllers.newBlog);
 
 router.get('/one/:id',blogControllers.blogById);
 
-router.delete('/delete/:id');
+router.delete('/delete/:id',blogControllers.deleteBlog);
 
-router.post('edit/:id');
+router.post('/edit/:id',blogControllers.editBlog);
 
 module.exports = router;
