@@ -8,7 +8,7 @@ router.get('/',blogControllers.allBlogs);
 
 router.post('/new',blogControllers.newBlog);
 
-router.get('/one/:id');
+router.get('/one/:id',blogControllers.blogById);
 
 router.delete('/delete/:id');
 

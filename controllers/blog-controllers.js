@@ -61,5 +61,20 @@ const allBlogs = async (req,res,next) => {
     })
 }
 
+const blogById = async(req,res,next) => {
+    const { id } = req.params;
+    Blog.findOne({_id:id},((err, blog) => {
+        if(err || !blog){
+            return res.send({
+                success: false,
+                message: "Cannot find blog"
+            });
+        } else{
+            return res.send(blog);
+        }
+    }))
+}
+
 exports.newBlog = newBlog;
 exports.allBlogs = allBlogs;
+exports.blogById = blogById;
