@@ -1,8 +1,8 @@
 const Blog = require('../models/blog');
-const Mentee = require('../models/mentee');
+// const Mentee = require('../models/mentee');
 const Mentor = require('../models/mentor');
 
-const HttpError = require('../models/http-error');
+// const HttpError = require('../models/http-error');
 
 const newBlog = async(req, res, next) => {
     let { title, body, authorId, domain, authorName, userType } = req.body;
