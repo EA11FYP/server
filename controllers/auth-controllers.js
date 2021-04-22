@@ -46,9 +46,9 @@ const menteeSignup =  (req, res, next) => {
 
 const mentorSignup = (req, res, next) => {
     const errors = validationResult(req);
-    let { username, password, name } = req.body;
+    let { username, password, name, age, phone, email,domain,experience,linkedin,bio } = req.body;
 
-    if (!errors.isEmpty() || !username || !password || !name) {
+    if (!errors.isEmpty() || !username || !password || !name || !age || !phone || !email || !domain || !experience || !linkedin || !bio)  {
        return  res.status(422).send({
             success: false,
             message: "Invalid inputs passed, please check your data."
@@ -67,7 +67,7 @@ const mentorSignup = (req, res, next) => {
             })
         }
         passport.authenticate("local")(req, res, async () => {
-            let newMentor = new Mentor({name: name, credentials: newUser._id});
+            let newMentor = new Mentor({name: name, credentials: newUser._id, age,bio,phone,email,domain,experience,linkedin});
             await newMentor.save();
             res.send({
                 success: true,

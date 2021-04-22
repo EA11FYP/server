@@ -7,6 +7,13 @@ const HttpError = require('../models/http-error');
 const newBlog = async(req, res, next) => {
     let { title, body, authorId, domain, authorName, userType } = req.body;
 
+    if(userType==='mentee'){
+        return res.status(401).send({
+            success:false,
+            message:"Cannot create blog for this usertype"
+        })
+    }
+
     let today = new Date();
     let date = `${today.getDate()}:${today.getMonth()+1}:${today.getFullYear()}`;
 
