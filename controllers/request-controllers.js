@@ -64,6 +64,79 @@ let newRequest = async (req, res, next) => {
     });
 }
 
+let requestAction = async (req, res, next) => {
+    let { mentorId, menteeId, status, requestId } = req.body;
+
+    if( !menteeId || !mentorId || !status || !requestId ){
+        return res.status(400).send({
+            success:false,
+            message: "Invalid inputs"
+        });
+    }
+
+    // if(status != 'ACCEPT' || status != 'DECLINE'){
+    //     return res.status(400).send({
+    //         success: false,
+    //         message: "status value incorrect"
+    //     })
+    // }
+
+    if(status === 'ACCEPT'){
+        await Requests.findById(requestId, async (err,result) => {
+            if(err || !result){
+                    return res.status(400).send({
+                        success: false,
+                        message: "Cannot find Request"
+                });
+            } else{
+                result.status = status;
+                await result.save();
+            }
+        });
+
+        await Mentor.findById(mentorId, async  (err,result) => {
+            if(err || !result){
+                return res.status(400).send({
+                    success: false,
+                    message: "Cannot find Mentor"
+                });
+            } else {
+                result.mentees.push(menteeId);
+                await result.save();
+            }
+        });
+
+        await Mentee.findById(menteeId, async (err,result) => {
+            if(err || !result){
+                return res.status(400).send({
+                    success: false,
+                    message: "Cannot find Mentee"
+                });
+            } else {
+                result.mentors.push(mentorId);
+                await result.save();
+            }
+        });
+    } else if(status === 'DECLINE'){
+        await Requests.findById(requestId, async (err,result) => {
+            if(err || !result){
+                    return res.status(400).send({
+                        success: false,
+                        message: "Cannot find Request"
+                });
+            } else{
+                result.status = status;
+                await result.save();
+            }
+        });
+    }
+
+    return res.status(200).send({
+        success: true,
+        message: "Action completed"
+    })
+}
+
 let allreq = async(req, res, next) => {
     Requests.find({}, (err,result) => {
         res.send(result);
@@ -79,3 +152,4 @@ let allMentee = async(req, res, next) => {
 exports.newRequest = newRequest;
 exports.allreq = allreq;
 exports.allMentee = allMentee;
+exports.requestAction = requestAction;

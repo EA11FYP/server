@@ -14,7 +14,7 @@ let menteeSchema = new Schema({
             ref: "Comment"
 		}
 	],
-    Mentors: [{
+    mentors: [{
         type: Schema.Types.ObjectId,
         ref: 'Mentor '
     }],
