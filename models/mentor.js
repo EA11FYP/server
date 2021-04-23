@@ -23,6 +23,14 @@ let mentorSchema = new Schema({
     blogs: [{
         type: Schema.Types.ObjectId,
         ref: 'Blog'
+    }],
+    mentees: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Mentee'
+    }],
+    requests: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Request'
     }]
 });
 

@@ -12,6 +12,7 @@ const authRoutes = require('./routes/auth-routes');
 const forumRoutes = require('./routes/forum-routes');
 const blogRoutes = require('./routes/blog-routes');
 const mentorRoutes = require('./routes/mentor-routes');
+const requestRoutes = require('./routes/request-routes');
 
 app.use(bodyParser.json());
 
@@ -45,6 +46,8 @@ app.use("/api/forum", forumRoutes);
 app.use("/api/blog", blogRoutes);
 
 app.use("/api/mentor", mentorRoutes);
+
+app.use("/api/request", requestRoutes);
 
 app.all('*',(req,res) => {
   return res.status(404).send({

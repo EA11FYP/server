@@ -13,7 +13,15 @@ let menteeSchema = new Schema({
 			type: mongoose.Schema.Types.ObjectId,
             ref: "Comment"
 		}
-	]
+	],
+    Mentors: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Mentor '
+    }],
+    requests: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Request'
+    }]
 });
 
 module.exports = mongoose.model("Mentee", menteeSchema);
