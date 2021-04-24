@@ -11,6 +11,7 @@ let requestSchema = new Schema({
         ref: 'Mentor'
     },
     status: String,
+    requestMessage: String,
     mentorName: String,
     menteeName: String,
     date: String

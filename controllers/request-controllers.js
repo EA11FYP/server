@@ -3,9 +3,9 @@ let Mentor = require('../models/mentor');
 let Mentee = require('../models/mentee');
 
 let newRequest = async (req, res, next) => {
-    let { mentorId, menteeId, mentorName, menteeName } = req.body;
+    let { mentorId, menteeId, mentorName, menteeName, requestMessage } = req.body;
 
-    if(!menteeId || !menteeName || !mentorId || !mentorName){
+    if(!menteeId || !menteeName || !mentorId || !mentorName || !requestMessage){
         return res.status(400).send({
             success:false,
             message: "Invalid inputs"
@@ -21,7 +21,8 @@ let newRequest = async (req, res, next) => {
         status: "HOLD",
         mentorName,
         menteeName,
-        date
+        date,
+        requestMessage
     });
 
     try{
