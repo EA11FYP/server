@@ -10,7 +10,7 @@ const HttpError = require('../models/http-error');
 const menteeSignup =  (req, res, next) => {
     const errors = validationResult(req);
      if (!errors.isEmpty()) {
-        res.send({
+        res.status(400).send({
             success: false,
             message: "Invalid inputs passed, please check your data."
         })
@@ -27,7 +27,7 @@ const menteeSignup =  (req, res, next) => {
     User.register(newUser, password, (err, user) => {
         if(err){
             new HttpError('User exists', 400);
-            return res.send({
+            return res.status(409).send({
                 success: false,
                 message: "User exists"
             })
@@ -61,7 +61,7 @@ const mentorSignup = (req, res, next) => {
     User.register(newUser, password, (err, user) => {
         if(err){
             new HttpError('User exists', 400);
-            return res.send({
+            return res.status(409).send({
                 success: false,
                 message: "User exists"
             })
@@ -83,7 +83,7 @@ const menteeLogin = (req, res, next) => {
 
     passport.authenticate('local', async (err, user, info) => {
         if (err) { 
-            return res.send({
+            return res.tatus(400).send({
                 success: false,
                 message: "Something went wrong, please try again"
             })
@@ -97,13 +97,13 @@ const menteeLogin = (req, res, next) => {
         let userInfo = await Mentee.findOne({credentials:user._id});
         req.logIn(user, (err) => {
             if (err) { 
-                return res.send({
+                return res.status(400).send({
                     success: false,
                     message: "Something went wrong, please try again"
                 })
             }
             if(userInfo == null){
-                return res.send({
+                return res.status(403).send({
                     success: false,
                     message: "User does not exists, Signup for free"
                 })
@@ -121,13 +121,13 @@ const mentorLogin = (req, res, next) => {
 
     passport.authenticate('local', async (err, user, info) => {
         if (err) { 
-            return res.send({
+            return res.status(400).send({
                 success: false,
                 message: "Something went wrong, please try again"
             })
         }
         if (!user) { 
-            return res.send({
+            return res.status(403).send({
                 success: false,
                 message: "User does not exists, Signup for free"
             })
@@ -135,13 +135,13 @@ const mentorLogin = (req, res, next) => {
         let userInfo = await Mentor.findOne({credentials:user._id});
         req.logIn(user, (err) => {
             if (err) { 
-                return res.send({
+                return res.status(400).send({
                     success: false,
                     message: "Something went wrong, please try again"
                 })
             }
             if(userInfo == null){
-                return res.send({
+                return res.status(403).send({
                     success: false,
                     message: "User does not exists, Signup for free"
                 })

@@ -21,7 +21,7 @@ const allMentors = async(req,res,next) => {
 const allReq = async(req,res,next) => {
     Mentor.findById(req.params.id, (err, result) => {
         if(err){
-            return  res.status(400).send({
+            return  res.status(404).send({
                  success: false,
                  message: "Cannot find mentor"
             });
@@ -34,5 +34,22 @@ const allReq = async(req,res,next) => {
     }).populate('requests');
 }
 
+const mentorById = async(req,res,next) => {
+    Mentor.findById(req.params.id, (err, result) => {
+        if(err){
+            return  res.status(404).send({
+                 success: false,
+                 message: "Cannot find mentor"
+            });
+        } else {
+            return res.status(200).send({
+                success: true,
+                info: result
+            })
+        }
+    })
+}
+
 exports.allMentors = allMentors;
 exports.allReq = allReq;
+exports.mentorById = mentorById;
