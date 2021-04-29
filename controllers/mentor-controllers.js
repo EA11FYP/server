@@ -50,6 +50,26 @@ const mentorById = async(req,res,next) => {
     })
 }
 
+const allMentorsChatbot = async (req,res,next) => {
+    Mentor.find({},(err,result) => {
+        if(err){
+           return res.status(400).send({
+                success:false,
+                message:err
+            });
+        } else {
+            res.send(result);
+        }
+    })
+}
+
+// id:result._id,
+//                 name: result.name,
+//                 domain: result.domain,
+//                 experience: result.experience,
+//                 bio: result.bio
+
 exports.allMentors = allMentors;
 exports.allReq = allReq;
 exports.mentorById = mentorById;
+exports.allMentorsChatbot = allMentorsChatbot;

@@ -9,4 +9,6 @@ router.get('/:id',mentorController.mentorById);
 
 router.get('/requests/all/:id', mentorController.allReq);
 
+router.get('/all/chatbot',mentorController.allMentorsChatbot);
+
 module.exports = router;
