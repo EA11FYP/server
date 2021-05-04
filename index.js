@@ -14,6 +14,7 @@ const blogRoutes = require('./routes/blog-routes');
 const mentorRoutes = require('./routes/mentor-routes');
 const menteeRoutes = require('./routes/mentee-routes');
 const requestRoutes = require('./routes/request-routes');
+const placementRoutes = require('./routes/placement-routes');
 
 app.use(bodyParser.json());
 
@@ -51,6 +52,8 @@ app.use("/api/mentor", mentorRoutes);
 app.use("/api/mentee", menteeRoutes)
 
 app.use("/api/request", requestRoutes);
+
+app.use("/api/placement", placementRoutes);
 
 app.all('*',(req,res) => {
   return res.status(404).send({

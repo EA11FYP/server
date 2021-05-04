@@ -18,6 +18,10 @@ let menteeSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'Mentor '
     }],
+    jobOpenings:[{
+        type: Schema.Types.ObjectId,
+        ref: 'Placement'
+    }],
     requests: [{
         type: Schema.Types.ObjectId,
         ref: 'Request'
