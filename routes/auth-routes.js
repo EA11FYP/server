@@ -20,6 +20,8 @@ router.post("/mentor/login", authControllers.mentorLogin);
 
 router.get("/logout", authControllers.logout);
 
+router.get("/current-user", authControllers.currentUser);
+
 
 
 module.exports = router;

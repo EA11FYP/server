@@ -164,8 +164,15 @@ const logout = (req, res, next) => {
     });
 }
 
+const currentUser = (req,res,next) => {
+    const resu = req.user;
+    console.log(resu);
+    res.status(200).send("hi");
+}
+
 exports.menteeSignup = menteeSignup;
 exports.mentorSignup = mentorSignup;
 exports.menteeLogin = menteeLogin;
 exports.mentorLogin = mentorLogin;
 exports.logout = logout;
+exports.currentUser = currentUser;
