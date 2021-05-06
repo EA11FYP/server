@@ -6,6 +6,7 @@ const Mentee = require('../models/mentee');
 const Mentor = require('../models/mentor');
 
 const HttpError = require('../models/http-error');
+const { use } = require('../routes/auth-routes');
 
 const menteeSignup =  (req, res, next) => {
     const errors = validationResult(req);
@@ -165,9 +166,30 @@ const logout = (req, res, next) => {
 }
 
 const currentUser = (req,res,next) => {
-    const resu = req.user;
-    console.log(resu);
-    res.status(200).send("hi");
+    if(!req.user){
+        return res.send(null);
+    }
+    let { userType, _id } = req.user;
+    console.log(userType,_id)
+    if(userType === 'mentor'){
+        Mentor.findOne({credentials:_id}, ((err, result) => {
+            if(err){
+                return res.send(null);
+            } else {
+                return res.status(200).send({result});
+            }
+        }));
+    }
+
+    if(userType === 'mentee'){
+        Mentee.findOne({credentials:_id}, ((err, result) => {
+            if(err){
+                return res.send(null);
+            } else {
+                return res.status(200).send({result});
+            }
+        }));
+    }
 }
 
 exports.menteeSignup = menteeSignup;
