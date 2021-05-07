@@ -21,9 +21,12 @@ const menteeSignup =  (req, res, next) => {
      //return res.send(errors.array())
      }
 
-    let { username, password, name } = req.body;
+    let { username, password, name, location, ceo, website, linkedin, domain, bio, funding, founders, email, phone } = req.body;
 
-    let newUser = new User({username: username, userType: "mentee"});
+    let newUser = new User({
+        username: username,
+        userType: "mentee",
+    });
     
     User.register(newUser, password, (err, user) => {
         if(err){
@@ -34,7 +37,20 @@ const menteeSignup =  (req, res, next) => {
             })
         }
         passport.authenticate("local")(req, res, async () => {
-            let newMentee = new Mentee({name: name, credentials: newUser._id});
+            let newMentee = new Mentee({
+                name: name,
+                credentials: newUser._id,
+                location,
+                ceo,
+                website,
+                linkedin,
+                domain,
+                bio,
+                funding,
+                founders,
+                email,
+                phone
+            });
             await newMentee.save();
             res.send({
                 success: true,

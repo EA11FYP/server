@@ -3,6 +3,16 @@ let { Schema } = mongoose;
 
 let menteeSchema = new Schema({
     name: {type:String, required:true},
+    location: String,
+    website: String,
+    ceo: String,
+    email: String,
+    phone: Number,
+    founders: String,
+    linkedin: String,
+    domain: String,
+    funding: Number,
+    bio: String,
     credentials: {type: Schema.Types.ObjectId, ref:'User'},
     forumPost: [{
         type: Schema.Types.ObjectId,
