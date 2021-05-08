@@ -9,6 +9,7 @@ let mentorSchema = new Schema({
     experience: Number,
     linkedin: String,
     bio:String,
+    phone:Number,
     credentials: {type: Schema.Types.ObjectId, ref:'User'}, //user.js
     forumPost: [{
         type: Schema.Types.ObjectId,

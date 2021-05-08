@@ -26,7 +26,7 @@ let menteeSchema = new Schema({
 	],
     mentors: [{
         type: Schema.Types.ObjectId,
-        ref: 'Mentor '
+        ref: 'Mentor'
     }],
     jobOpenings:[{
         type: Schema.Types.ObjectId,

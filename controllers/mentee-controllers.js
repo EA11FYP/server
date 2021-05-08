@@ -17,7 +17,7 @@ const allReq = async(req,res,next) => {
 }
 
 const menteeById = async( req, res, next ) => {
-    Mentee.findById(req.params.id,(err, result) => {
+    Mentee.findOne({_id:req.params.id},((err, result) => {
         if (err) {
             return res.status(404).send({
                 success: false,
@@ -29,7 +29,7 @@ const menteeById = async( req, res, next ) => {
                 info: result
             })
         }
-    })
+    })).populate('mentors');
 }
 
 exports.allReq = allReq;
